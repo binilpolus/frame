@@ -124,7 +124,8 @@ function App() {
           
           {selectedImage && (
             <>
-              <div className="control-group">
+              {/* Zoom control hidden for now */}
+              {/* <div className="control-group">
                 <label>Zoom: {(imageScale * 100).toFixed(0)}%</label>
                 <input
                   type="range"
@@ -134,7 +135,7 @@ function App() {
                   value={imageScale}
                   onChange={(e) => setImageScale(parseFloat(e.target.value))}
                 />
-              </div>
+              </div> */}
 
               <ExportButton onExport={handleExport} />
             </>
