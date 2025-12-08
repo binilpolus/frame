@@ -6,13 +6,11 @@ import './App.css'
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null)
-  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 })
   const [imageScale, setImageScale] = useState(1)
   const frameRef = useRef(null)
 
   const handleImageSelect = (imageSrc) => {
     setSelectedImage(imageSrc)
-    setImagePosition({ x: 0, y: 0 })
     setImageScale(1)
   }
 
@@ -55,11 +53,9 @@ function App() {
           imgWidth = imgHeight * imgAspect
         }
 
-        // Calculate position within frame opening
-        const offsetX = (imagePosition.x * openingRadius) / 100
-        const offsetY = (imagePosition.y * openingRadius) / 100
-        const x = centerX + offsetX - (imgWidth / 2)
-        const y = centerY + offsetY - (imgHeight / 2)
+        // Center the image in the frame opening
+        const x = centerX - (imgWidth / 2)
+        const y = centerY - (imgHeight / 2)
 
         // Clip to circular frame opening area
         ctx.save()
@@ -103,10 +99,7 @@ function App() {
           <Frame
             ref={frameRef}
             selectedImage={selectedImage}
-            imagePosition={imagePosition}
             imageScale={imageScale}
-            onPositionChange={setImagePosition}
-            onScaleChange={setImageScale}
           />
         </div>
 
@@ -116,34 +109,12 @@ function App() {
           {selectedImage && (
             <>
               <div className="control-group">
-                <label>Position X: {imagePosition.x.toFixed(0)}%</label>
-                <input
-                  type="range"
-                  min="-50"
-                  max="50"
-                  value={imagePosition.x}
-                  onChange={(e) => setImagePosition(prev => ({ ...prev, x: parseFloat(e.target.value) }))}
-                />
-              </div>
-              
-              <div className="control-group">
-                <label>Position Y: {imagePosition.y.toFixed(0)}%</label>
-                <input
-                  type="range"
-                  min="-50"
-                  max="50"
-                  value={imagePosition.y}
-                  onChange={(e) => setImagePosition(prev => ({ ...prev, y: parseFloat(e.target.value) }))}
-                />
-              </div>
-              
-              <div className="control-group">
-                <label>Scale: {(imageScale * 100).toFixed(0)}%</label>
+                <label>Zoom: {(imageScale * 100).toFixed(0)}%</label>
                 <input
                   type="range"
                   min="0.5"
                   max="2"
-                  step="0.1"
+                  step="0.05"
                   value={imageScale}
                   onChange={(e) => setImageScale(parseFloat(e.target.value))}
                 />

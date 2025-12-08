@@ -32,7 +32,6 @@
   top: 50%;
   left: 50%;
   transform-origin: center;
-  cursor: move;
   user-select: none;
   z-index: 10;
 }
