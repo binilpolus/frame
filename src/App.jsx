@@ -37,20 +37,32 @@ function App() {
       userImg.crossOrigin = 'anonymous'
       userImg.onload = () => {
         // Calculate frame opening area (circular, centered)
-        // Adjust these values based on your frame design
+        // Opening is 70% of canvas (35% radius), matching CSS preview
         const centerX = size / 2
         const centerY = size / 2
-        const openingRadius = size * 0.35 // 35% of canvas size (adjust as needed)
+        const openingDiameter = size * 0.70 // 70% of canvas size (matches CSS)
+        const openingRadius = size * 0.35 // 35% radius
+        const baseSize = openingDiameter * imageScale // Base size scaled by zoom
         
-        // Calculate image dimensions to fit the opening
-        const imgAspect = userImg.width / userImg.height
-        let imgWidth = openingRadius * 2 * imageScale
-        let imgHeight = openingRadius * 2 * imageScale
-
+        // Get actual image dimensions (accounting for any EXIF orientation)
+        const imgWidth_actual = userImg.width
+        const imgHeight_actual = userImg.height
+        const imgAspect = imgWidth_actual / imgHeight_actual
+        
+        // Calculate image dimensions to cover the circular opening
+        // For a circle, we need to ensure the image covers the full diameter
+        let imgWidth, imgHeight
+        
+        // Size image to cover the circle - ensure the smaller dimension covers the diameter
+        // This way the image will fully cover the circle without gaps
         if (imgAspect > 1) {
-          imgHeight = imgWidth / imgAspect
+          // Landscape: width is larger, so ensure height covers the diameter
+          imgHeight = baseSize
+          imgWidth = baseSize * imgAspect
         } else {
-          imgWidth = imgHeight * imgAspect
+          // Portrait or square: height is larger or equal, so ensure width covers the diameter
+          imgWidth = baseSize
+          imgHeight = baseSize / imgAspect
         }
 
         // Center the image in the frame opening
@@ -63,8 +75,12 @@ function App() {
         ctx.arc(centerX, centerY, openingRadius, 0, Math.PI * 2)
         ctx.clip()
 
-        // Draw user image
-        ctx.drawImage(userImg, x, y, imgWidth, imgHeight)
+        // Draw user image - ensure it's drawn from top-left corner
+        ctx.drawImage(
+          userImg,
+          0, 0, imgWidth_actual, imgHeight_actual, // Source rectangle
+          x, y, imgWidth, imgHeight // Destination rectangle
+        )
 
         ctx.restore()
 
