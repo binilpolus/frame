@@ -37,26 +37,20 @@ function App() {
       userImg.crossOrigin = 'anonymous'
       userImg.onload = () => {
         // Calculate frame opening area (circular, centered)
-        // Opening is 70% of canvas diameter, matching CSS preview (70% width/height)
+        // Adjust these values based on your frame design
         const centerX = size / 2
         const centerY = size / 2
-        const openingSize = size * 0.70 // 70% of canvas size (matches CSS preview)
-        const baseSize = openingSize * imageScale // Base size scaled by zoom
+        const openingRadius = size * 0.35 // 35% of canvas size (adjust as needed)
         
-        // Calculate image dimensions to cover the opening while maintaining aspect ratio
+        // Calculate image dimensions to fit the opening
         const imgAspect = userImg.width / userImg.height
-        let imgWidth, imgHeight
-        
-        // Size to cover the circular opening (use diagonal to ensure full coverage)
-        // For a circle, we need the image to cover the diameter
+        let imgWidth = openingRadius * 2 * imageScale
+        let imgHeight = openingRadius * 2 * imageScale
+
         if (imgAspect > 1) {
-          // Landscape: ensure height covers the diameter
-          imgHeight = baseSize
-          imgWidth = baseSize * imgAspect
+          imgHeight = imgWidth / imgAspect
         } else {
-          // Portrait or square: ensure width covers the diameter
-          imgWidth = baseSize
-          imgHeight = baseSize / imgAspect
+          imgWidth = imgHeight * imgAspect
         }
 
         // Center the image in the frame opening
