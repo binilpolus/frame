@@ -4,6 +4,7 @@
   max-width: 500px;
   aspect-ratio: 1;
   margin: 0 auto;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .frame-container-inner {
@@ -31,14 +32,18 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform-origin: center;
+  transform-origin: center center;
   user-select: none;
   z-index: 10;
+  -webkit-transform-origin: center center;
+  touch-action: none;
 }
 
 .user-image {
-  width: 200px;
-  height: 200px;
+  width: 70%;
+  height: 70%;
+  max-width: 200px;
+  max-height: 200px;
   object-fit: cover;
   border-radius: 50%;
   pointer-events: none;

@@ -4,6 +4,14 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   padding: 30px;
   max-width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 767px) {
+  .app {
+    padding: 15px;
+    border-radius: 15px;
+  }
 }
 
 .app-header {
@@ -36,6 +44,13 @@
   border-radius: 15px;
   padding: 20px;
   min-height: 400px;
+}
+
+@media (max-width: 767px) {
+  .frame-container {
+    padding: 10px;
+    min-height: 300px;
+  }
 }
 
 .controls {

@@ -13,6 +13,7 @@ const Frame = forwardRef(({ selectedImage, imageScale }, ref) => {
               className="user-image-container"
               style={{
                 transform: `translate(-50%, -50%) scale(${imageScale})`,
+                WebkitTransform: `translate(-50%, -50%) scale(${imageScale})`,
               }}
             >
               <img 
