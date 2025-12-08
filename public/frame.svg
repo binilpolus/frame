@@ -1,0 +1,25 @@
+<svg width="1024" height="1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="#f0f0f0"/>
+  
+  <!-- Decorative frame border -->
+  <circle cx="512" cy="512" r="480" fill="none" stroke="#667eea" stroke-width="20"/>
+  <circle cx="512" cy="512" r="450" fill="none" stroke="#764ba2" stroke-width="15"/>
+  <circle cx="512" cy="512" r="420" fill="none" stroke="#667eea" stroke-width="10"/>
+  
+  <!-- Inner decorative elements -->
+  <circle cx="512" cy="200" r="30" fill="#667eea" opacity="0.6"/>
+  <circle cx="512" cy="824" r="30" fill="#764ba2" opacity="0.6"/>
+  <circle cx="200" cy="512" r="30" fill="#667eea" opacity="0.6"/>
+  <circle cx="824" cy="512" r="30" fill="#764ba2" opacity="0.6"/>
+  
+  <!-- Corner decorations -->
+  <path d="M 100 100 L 150 100 L 100 150 Z" fill="#667eea" opacity="0.4"/>
+  <path d="M 924 100 L 874 100 L 924 150 Z" fill="#764ba2" opacity="0.4"/>
+  <path d="M 100 924 L 150 924 L 100 874 Z" fill="#764ba2" opacity="0.4"/>
+  <path d="M 924 924 L 874 924 L 924 874 Z" fill="#667eea" opacity="0.4"/>
+  
+  <!-- Center area is transparent (photo will go here) -->
+  <circle cx="512" cy="512" r="350" fill="white" opacity="0.01"/>
+</svg>
+
