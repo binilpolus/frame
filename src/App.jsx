@@ -36,12 +36,15 @@ function App() {
       const userImg = new Image()
       userImg.crossOrigin = 'anonymous'
       userImg.onload = () => {
-        // Calculate frame opening area (circular, centered)
-        // Opening is 70% of canvas (35% radius), matching CSS preview
-        const centerX = size / 2
-        const centerY = size / 2
-        const openingDiameter = size * 0.70 // 70% of canvas size (matches CSS)
-        const openingRadius = size * 0.35 // 35% radius
+        // Calculate frame opening area (circular, positioned based on frame design)
+        // For the political frame: white circle is center-left, approximately:
+        // - Horizontal: ~35% from left (center-left)
+        // - Vertical: ~50% (centered vertically)
+        // - Size: approximately 30-35% of canvas width
+        const openingCenterX = size * 0.35 // Center-left position
+        const openingCenterY = size * 0.50 // Centered vertically
+        const openingRadius = size * 0.17 // Approximately 17% radius (34% diameter)
+        const openingDiameter = openingRadius * 2
         const baseSize = openingDiameter * imageScale // Base size scaled by zoom
         
         // Get actual image dimensions (accounting for any EXIF orientation)
@@ -65,14 +68,14 @@ function App() {
           imgHeight = baseSize / imgAspect
         }
 
-        // Center the image in the frame opening
-        const x = centerX - (imgWidth / 2)
-        const y = centerY - (imgHeight / 2)
+        // Position the image in the frame opening (center-left)
+        const x = openingCenterX - (imgWidth / 2)
+        const y = openingCenterY - (imgHeight / 2)
 
         // Clip to circular frame opening area
         ctx.save()
         ctx.beginPath()
-        ctx.arc(centerX, centerY, openingRadius, 0, Math.PI * 2)
+        ctx.arc(openingCenterX, openingCenterY, openingRadius, 0, Math.PI * 2)
         ctx.clip()
 
         // Draw user image - ensure it's drawn from top-left corner
@@ -96,10 +99,10 @@ function App() {
       }
       userImg.src = selectedImage
     }
-    // Try SVG first, fallback to PNG
-    frameImg.src = '/frame.svg'
+    // Try PNG first (for custom frame images), fallback to SVG
+    frameImg.src = '/frame.png'
     frameImg.onerror = () => {
-      frameImg.src = '/frame.png'
+      frameImg.src = '/frame.svg'
     }
   }
 

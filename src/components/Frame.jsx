@@ -6,7 +6,7 @@ const Frame = forwardRef(({ selectedImage, imageScale }, ref) => {
     <div className="frame-wrapper" ref={ref}>
       <div className="frame-container-inner">
         <div className="frame-image-container">
-          <img src="/frame.svg" alt="Frame" className="frame-image" onError={(e) => { e.target.src = '/frame.png' }} />
+          <img src="/frame.png" alt="Frame" className="frame-image" onError={(e) => { e.target.src = '/frame.svg' }} />
           
           {selectedImage && (
             <div 
