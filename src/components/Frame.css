@@ -43,7 +43,7 @@
 .user-image-container {
   position: absolute;
   top: 50%;
-  left: 30%;
+  left: 48%;
   transform-origin: center center;
   user-select: none;
   z-index: 10;
@@ -52,10 +52,10 @@
 }
 
 .user-image {
-  width: 44%;
-  height: 44%;
-  max-width: 250px;
-  max-height: 250px;
+  width: 57.5%;
+  height: 57.5%;
+  max-width: 300px;
+  max-height: 300px;
   object-fit: cover;
   border-radius: 50%;
   pointer-events: none;
@@ -75,9 +75,9 @@
   content: '';
   position: absolute;
   top: 50%;
-  left: 30%;
-  width: 44%;
-  height: 44%;
+  left: 48%;
+  width: 57.5%;
+  height: 57.5%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   pointer-events: none;

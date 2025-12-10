@@ -57,17 +57,17 @@ function App() {
       userImg.onload = () => {
         // Calculate frame opening area (circular, positioned based on frame design)
         // For the political frame: white circle is center-left, approximately:
-        // - Horizontal: ~30% from left (center-left) relative to frame
+        // - Horizontal: ~48% from left (middle position between too left and too right) relative to frame
         // - Vertical: ~50% (centered vertically) relative to frame
-        // - Size: approximately 44% diameter to cover entire white circle
+        // - Size: approximately 57.5% diameter (25% larger than before) to cover entire white circle
         // Adjust positions based on frame scaling and centering
         // Calculate relative to the actual frame dimensions (which are already scaled)
-        const relativeX = 0.30 // 30% from left of frame
+        const relativeX = 0.48 // 48% from left of frame (middle position)
         const relativeY = 0.50 // 50% from top of frame
         
         const openingCenterX = frameX + (frameWidth * relativeX)
         const openingCenterY = frameY + (frameHeight * relativeY)
-        const openingRadius = frameWidth * 0.22 // 22% radius relative to frame width
+        const openingRadius = frameWidth * 0.2875 // 28.75% radius (57.5% diameter) - 25% larger
         const openingDiameter = openingRadius * 2
         const baseSize = openingDiameter * imageScale // Base size scaled by zoom
         
