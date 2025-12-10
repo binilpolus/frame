@@ -29,8 +29,27 @@ function App() {
     const frameImg = new Image()
     frameImg.crossOrigin = 'anonymous'
     frameImg.onload = () => {
-      // Draw frame
-      ctx.drawImage(frameImg, 0, 0, size, size)
+      // Draw frame - maintain aspect ratio and center it
+      // Calculate scaling to fit frame in square canvas while maintaining aspect ratio
+      const frameAspect = frameImg.width / frameImg.height
+      let frameWidth = size
+      let frameHeight = size
+      let frameX = 0
+      let frameY = 0
+      
+      if (frameAspect > 1) {
+        // Frame is wider than tall - fit to height
+        frameHeight = size
+        frameWidth = size * frameAspect
+        frameX = (size - frameWidth) / 2
+      } else if (frameAspect < 1) {
+        // Frame is taller than wide - fit to width
+        frameWidth = size
+        frameHeight = size / frameAspect
+        frameY = (size - frameHeight) / 2
+      }
+      
+      ctx.drawImage(frameImg, frameX, frameY, frameWidth, frameHeight)
 
       // Load user image
       const userImg = new Image()
@@ -38,12 +57,17 @@ function App() {
       userImg.onload = () => {
         // Calculate frame opening area (circular, positioned based on frame design)
         // For the political frame: white circle is center-left, approximately:
-        // - Horizontal: ~35% from left (center-left)
-        // - Vertical: ~50% (centered vertically)
-        // - Size: approximately 30-35% of canvas width
-        const openingCenterX = size * 0.35 // Center-left position
-        const openingCenterY = size * 0.50 // Centered vertically
-        const openingRadius = size * 0.17 // Approximately 17% radius (34% diameter)
+        // - Horizontal: ~30% from left (center-left) relative to frame
+        // - Vertical: ~50% (centered vertically) relative to frame
+        // - Size: approximately 44% diameter to cover entire white circle
+        // Adjust positions based on frame scaling and centering
+        // Calculate relative to the actual frame dimensions (which are already scaled)
+        const relativeX = 0.30 // 30% from left of frame
+        const relativeY = 0.50 // 50% from top of frame
+        
+        const openingCenterX = frameX + (frameWidth * relativeX)
+        const openingCenterY = frameY + (frameHeight * relativeY)
+        const openingRadius = frameWidth * 0.22 // 22% radius relative to frame width
         const openingDiameter = openingRadius * 2
         const baseSize = openingDiameter * imageScale // Base size scaled by zoom
         
